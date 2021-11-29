@@ -15,8 +15,11 @@ void ADC_Init() {
 	ADCSRA |= (1 << ADPS0) | (1 << ADPS1) | (1 << ADPS2) | (1 << ADEN);
 }
 
-uint16_t ADC_Read() {
+uint16_t ADC_Read(uint8_t channel) {
+	channel = channel & 0b00000111;
+	ADMUX = (ADMUX & 0xF8) | channel;
 	ADCSRA |= (1 << ADSC);
+	while(ADCSRA & (1<<ADSC));
 	return ADC;
 }
 
@@ -34,7 +37,7 @@ int main(void)
     /* Main loop */
     while (1) 
     {
-		brightness = ADC_Read() * 0.249267;
+		brightness = ADC_Read(0) * 0.249267;
 		OCR2 = brightness;
 		_delay_ms(100);
     }
