@@ -459,6 +459,10 @@ FodyWeavers.xsd
 .idea/
 *.sln.iml
 
+# Proteus
+*.workspace
+*.pdsbak
+
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
 
